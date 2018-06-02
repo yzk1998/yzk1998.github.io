@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="原文自:nvie.com/posts/a-successful-git-branching-model/ 一个分支策略： 这些分支当然都是普普通通的git分支,进行分类的原因只是我们对他们的用法不同 main branches: 生命周期是永久的             branch Master: 用来产品的版本发布             branch Develop: 用来开发者进行开发">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T03:16:04.818Z">
+<meta property="og:image" content="https://github.com/yzk1998/images/raw/master/images-1.png">
+<meta property="og:updated_time" content="2018-06-02T15:56:51.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postgithub上的多人协作">
 <meta name="twitter:description" content="原文自:nvie.com/posts/a-successful-git-branching-model/ 一个分支策略： 这些分支当然都是普普通通的git分支,进行分类的原因只是我们对他们的用法不同 main branches: 生命周期是永久的             branch Master: 用来产品的版本发布             branch Develop: 用来开发者进行开发">
+<meta name="twitter:image" content="https://github.com/yzk1998/images/raw/master/images-1.png">
 
 
 
@@ -361,27 +363,26 @@ supporting branches: 生命周期有限,会被删除
                              $ git git branch -d release-1.2
 
     branch Hotfix: 用来产品问题的快速修复,工作方式用一张图说明。
-                    ![Image discription](https://github.com/yzk1998/images/raw/master/images-1.png)
+</code></pre><p><img src="https://github.com/yzk1998/images/raw/master/images-1.png" alt="Image discription"></p>
+<pre><code>    从Master分支分支出来
+    一定会合并回Develop和master分支
+    命名习惯是hotfix-*
 
-                        从Master分支分支出来
-                        一定会合并回Develop和master分支
-                        命名习惯是hotfix-*
+    创建 $ git checkout -b hotfix-1.2.1 master
+         $ ./bump-version.sh 1.2.1
+         $ git commit -a -m &quot;Bumped version number to 1.2.1&quot;
 
-                        创建 $ git checkout -b hotfix-1.2.1 master
-                             $ ./bump-version.sh 1.2.1
-                             $ git commit -a -m &quot;Bumped version number to 1.2.1&quot;
+         $ git commit -m &quot;Fixed severe production promblem&quot;
+    完成hotfix分支的使命
+         $ git checkout master
+         $ git merge --no-ff hotfix-1.2.1
+         $ git tag -a 1.2.1
 
-                             $ git commit -m &quot;Fixed severe production promblem&quot;
-                        完成hotfix分支的使命
-                             $ git checkout master
-                             $ git merge --no-ff hotfix-1.2.1
-                             $ git tag -a 1.2.1
+         $ git checkout develop
+         $ git merge --no-ff hotfix-1.2.1
 
-                             $ git checkout develop
-                             $ git merge --no-ff hotfix-1.2.1
-
-                             $ git branch -d hotfix-1.2.1
-                    当Release分支存在时,Hotfix分支应合并到Release上而不是Develop分支
+         $ git branch -d hotfix-1.2.1
+当Release分支存在时,Hotfix分支应合并到Release上而不是Develop分支
 </code></pre>
       
     </div>
@@ -496,7 +497,7 @@ supporting branches: 生命周期有限,会被删除
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -509,7 +510,7 @@ supporting branches: 生命周期有限,会被删除
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

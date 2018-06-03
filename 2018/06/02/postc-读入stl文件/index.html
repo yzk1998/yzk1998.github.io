@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/yzk1998/images/master/binary_stl_rew.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/yzk1998/images/master/binary.png">
-<meta property="og:updated_time" content="2018-06-03T04:35:44.911Z">
+<meta property="og:updated_time" content="2018-06-03T04:58:28.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postc++读入stl文件">
 <meta name="twitter:description" content="Last week, except one exam that I didn’t passed, the only thing I did is the task guided by my teacher WanYi. It’s about read a file with .stl file format using c++.However I haven’t learned c++. So i">
@@ -317,186 +317,226 @@
       
         <p>Last week, except one exam that I didn’t passed, the only thing I did is the task guided by my teacher WanYi. It’s about read a file with .stl file format using c++.<br><br>However I haven’t learned c++. So it’s quite hard for me. And really made me feel annoying. But after waste my three or four hours, finally I settle into shape.<br><br>So let me talk about this.<br></p>
 <hr>
-<h3 id="First-question-What-is-the-stl-file-format"><a href="#First-question-What-is-the-stl-file-format" class="headerlink" title="First question : What is the .stl file format ?"></a>First question : What is the .stl file format ?</h3><pre><code>So Why it calls &quot;stl&quot;? 
-    STereoLithography, 立体光刻
-Where is it being used?
-    STL files describe only the surface geometry of a three-dimensional object without any representation of color, texture or other common CAD model attributes. 
-    The STL format specifies both ASCII and binary representations. Binary files are more common, since they are more compact.
-    STL文件仅描述三维物体的表面几何形状，没有颜色、材质贴图或其它常见三维模型的属性。STL格式有文字和二进码两种型式。二进码型式因较简洁而较常见。
-How it works?
-    An STL file describes a raw, unstructured triangulated surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles using a 
-    three-dimensional Cartesian coordinate system. In the original specification, all STL coordinates were required to be positive numbers, but this restriction 
-    is no longer enforced and negative coordinates are commonly encountered in STL files today. STL files contain no scale information, and the units are arbitrary.
-    STL档描述原始非结构化三角网格由表面单位法线和由右手定则排序的顶点用三维笛卡儿座标系。STL座标必须是正数，没有尺度信息，且计量单位为任意的。
-How can it store the information?
-    if it&apos;s a ASCII STL file.
-    solid name
-    facet normal ni nj nk
-        outer loop
-            vertex v1x v1y v1z
-            vertex v2x v2y v2z
-            vertex v3x v3y v3z
-        endloop
-    endfacet
-    endsolid name
+<h3 id="First-question-What-is-the-stl-file-format"><a href="#First-question-What-is-the-stl-file-format" class="headerlink" title="First question : What is the .stl file format ?"></a>First question : What is the .stl file format ?</h3><blockquote>
+<p>So Why it calls “stl”? </p>
+<blockquote>
+<p>STereoLithography, 立体光刻<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>Where is it being used?<br></p>
+<blockquote>
+<p>STL files describe only the surface geometry of a three-dimensional object without any representation of color, texture or other common CAD model attributes.<br>The STL format specifies both ASCII and binary representations. Binary files are more common, since they are more compact.<br><br>STL文件仅描述三维物体的表面几何形状，没有颜色、材质贴图或其它常见三维模型的属性。STL格式有文字和二进码两种型式。二进码型式因较简洁而较常见<br> </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>How it works?</p>
+<blockquote>
+<p>An STL file describes a raw, unstructured triangulated surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles using a<br>three-dimensional Cartesian coordinate system. In the original specification, all STL coordinates were required to be positive numbers, but this restriction<br>is no longer enforced and negative coordinates are commonly encountered in STL files today. STL files contain no scale information, and the units are arbitrary.<br><br>STL档描述原始非结构化三角网格由表面单位法线和由右手定则排序的顶点用三维笛卡儿座标系。STL座标必须是正数，没有尺度信息，且计量单位为任意的.<br> </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>How can it store the information?<br></p>
+<blockquote>
+<blockquote>
+<p>if it’s a ASCII STL file.<br></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>solid name<br><br>facet normal ni nj nk<br><br>outer loop<br><br>vertex v1x v1y v1z<br><br>vertex v2x v2y v2z<br><br>vertex v3x v3y v3z<br><br>endloop<br><br>endfacet<br><br>endsolid name<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>if it’s a Binary STL file.<br><br>Because ASCII STL files can become very large, a binary version of STL exists. A binary STL file has an 80-character header (which is generally ignored,<br>but should never begin with “solid” because that will lead most software to assume that this is an ASCII STL file[citation needed]). Following the header<br>is a 4-byte little-endian unsigned integer indicating the number of triangular facets in the file. Following that is data describing each triangle in turn.<br>The file simply ends after the last triangle.Each triangle is described by twelve 32-bit floating-point numbers: three for the normal and then three for<br>the X/Y/Z coordinate of each vertex – just as with the ASCII version of STL. After these follows a 2-byte (“short”) unsigned integer that is the<br>“attribute byte count” – in the standard format, this should be zero because most software does not understand anything else.<br>Floating-point numbers are represented as IEEE floating-point numbers and are assumed to be little-endian, although this is not stated in documentation.<br><br>由于文字STL档会非常大，因此有二进码版的STL。二进码STL档有个80字符的标头（内容通常都被忽略但绝不可用”solid”来开始！这样会使不少软件认为这是文字STL档）.<br>接着是一个4比特无号整数，它表示这文件中的三角形数。再来是描述每个三角形的信息。之后就结束。每个三角形以12个32位浮点数来描述：3个描述法线,<br>接着三顶点的X/Y/Z座标─正如文字STL一样。之后是一个2比特无号整数(unsigned short)，它代表“属性字符数”─在标准格式中它该是0，因为多数软件不明白其它事项.<br>虽然文件内没有说明，浮点数以little-endian的IEEE 754表示.<br>Let’s look what is the binary STL file real looks like.<br> </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary_stl_rew.png" alt="image text"><br></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>二进制文件
+</code></pre><blockquote>
+<blockquote>
+<blockquote>
+<p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary.png" alt="image text"><br></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>内容解析
+</code></pre><blockquote>
+<p>And you may ask Why we need normal?</p>
+<blockquote>
+<p>I don’t know,too.</p>
+</blockquote>
+</blockquote>
+<hr>
+<h3 id="Second-question-How-can-we-use-c-to-read-in-the-stl-file-format"><a href="#Second-question-How-can-we-use-c-to-read-in-the-stl-file-format" class="headerlink" title="Second question : How can we use c++ to read in the stl file format ?"></a>Second question : How can we use c++ to read in the stl file format ?</h3><blockquote>
+<p>So if we have binary and ASCII file, how could we distinguish them?</p>
+<blockquote>
+<p>We know that ASCII style is begin with “solid”. So we can examine if it start with “s” or “solid” although this may seen stupid.<br><br>code:</p>
+<blockquote>
+<p>The code is below. Because I am new for c++, I am going to expain it carefully.<br> </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>    bool ReadSTLFile(const char *cfilename)    //oen question how can we assign a file name to a const char variaty ?
+{
+    if (cfilename == NULL) 
+        return false;
 
-    if it&apos;s a Binary STL file.
-    Because ASCII STL files can become very large, a binary version of STL exists. A binary STL file has an 80-character header (which is generally ignored, 
-    but should never begin with &quot;solid&quot; because that will lead most software to assume that this is an ASCII STL file[citation needed]). Following the header 
-    is a 4-byte little-endian unsigned integer indicating the number of triangular facets in the file. Following that is data describing each triangle in turn. 
-    The file simply ends after the last triangle.Each triangle is described by twelve 32-bit floating-point numbers: three for the normal and then three for 
-    the X/Y/Z coordinate of each vertex – just as with the ASCII version of STL. After these follows a 2-byte (&quot;short&quot;) unsigned integer that is the 
-    &quot;attribute byte count&quot; – in the standard format, this should be zero because most software does not understand anything else.
-    Floating-point numbers are represented as IEEE floating-point numbers and are assumed to be little-endian, although this is not stated in documentation.
-    由于文字STL档会非常大，因此有二进码版的STL。二进码STL档有个80字符的标头（内容通常都被忽略但绝不可用&quot;solid&quot;来开始！这样会使不少软件认为这是文字STL档）。
-    接着是一个4比特无号整数，它表示这文件中的三角形数。再来是描述每个三角形的信息。之后就结束。每个三角形以12个32位浮点数来描述：3个描述法线，
-    接着三顶点的X/Y/Z座标─正如文字STL一样。之后是一个2比特无号整数(unsigned short)，它代表“属性字符数”─在标准格式中它该是0，因为多数软件不明白其它事项。
-    虽然文件内没有说明，浮点数以little-endian的IEEE 754表示。
-    Let&apos;s look what is the binary STL file real looks like.
-</code></pre><p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary_stl_rew.png" alt="image text"><br>                        二进制文件</p>
-<p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary.png" alt="image text"><br>                        内容解析</p>
-<pre><code>And you may ask Why we need normal?
-    I don&apos;t know,too.
-</code></pre><hr>
-<h3 id="Second-question-How-can-we-use-c-to-read-in-the-stl-file-format"><a href="#Second-question-How-can-we-use-c-to-read-in-the-stl-file-format" class="headerlink" title="Second question : How can we use c++ to read in the stl file format ?"></a>Second question : How can we use c++ to read in the stl file format ?</h3><pre><code>So if we have binary and ASCII file, how could we distinguish them?
-    We know that ASCII style is begin with &quot;solid&quot;. So we can examine if it start with &quot;s&quot; or &quot;solid&quot; although this may seen stupid.
-    code:
-        The code is below. Because I am new for c++, I am going to expain it carefully.
-        bool ReadSTLFile(const char *cfilename)    //oen question how can we assign a file name to a const char variaty ?
+    ifstream in(cfilename, ios::in);      //将变量与文件关联的方法有两个.一是像这样使用带参数的构造函数，创建一个文件对象(这个对象的类就是其前面的类)，关联硬盘上的物理文件 
+                                        //二是创建一个文件对象，但是开始并没关联任何文件，后来调用它的方法来显示关联一个物理文件。
+    if (!in)
+        return false;
+
+    string headStr;                    
+    getline(in, headStr, &apos; &apos;);            //getline三个参数 流类对象,字符串类对象,分隔符
+    in.close();
+
+    if (headStr.empty())
+        return false;
+
+    if (headStr[0] == &apos;s&apos;)
     {
-        if (cfilename == NULL) 
-            return false;
-
-        ifstream in(cfilename, ios::in);      //将变量与文件关联的方法有两个.一是像这样使用带参数的构造函数，创建一个文件对象(这个对象的类就是其前面的类)，关联硬盘上的物理文件 
-                                            //二是创建一个文件对象，但是开始并没关联任何文件，后来调用它的方法来显示关联一个物理文件。
-        if (!in)
-            return false;
-
-        string headStr;                    
-        getline(in, headStr, &apos; &apos;);            //getline三个参数 流类对象,字符串类对象,分隔符
-        in.close();
-
-        if (headStr.empty())
-            return false;
-
-        if (headStr[0] == &apos;s&apos;)
-        {
-            cout &lt;&lt; &quot;ASCII File.&quot; &lt;&lt; endl;
-            ReadASCII(cfilename);
-        }
-        else
-        {
-            cout &lt;&lt; &quot;Binary File.&quot; &lt;&lt; endl;
-            ReadBinary(cfilename);
-        }
-        return true;
-        }
-
-
-
-        bool ReadASCII(const char *cfilename)
+        cout &lt;&lt; &quot;ASCII File.&quot; &lt;&lt; endl;
+        ReadASCII(cfilename);
+    }
+    else
     {
-        std::vector&lt;float&gt; coorX;        //vector容器 So what is a vector?  vector是一个能够存放任意类型的动态数组，能够增加和压缩数据。
-        std::vector&lt;float&gt; coorY;        //创建一个空的float型的vector容器
-        std::vector&lt;float&gt; coorZ;
-
-        int i = 0, j = 0, cnt = 0, pCnt = 4;
-        char a[100];
-        char str[100];
-        double x = 0, y = 0, z = 0;
-
-        ifstream in;                    //第二种关联方法
-        in.open(cfilename, ios::in);
-        if (!in)
-            return false;
-        do
-        {
-            i = 0;
-            cnt = 0;
-            in.getline(a, 100, &apos;\n&apos;);    //getline 方法
-            while (a[i] != &apos;\0&apos;)
-            {
-                if (!islower((int)a[i]) &amp;&amp; !isupper((int)a[i]) &amp;&amp; a[i] != &apos; &apos;) 
-                break;
-                cnt++;
-                i++;
-            }
-
-            while (a[cnt] != &apos;\0&apos;)
-            {
-                str[j] = a[cnt];
-                cnt++;
-                j++;
-            }
-            str[j] = &apos;\0&apos;;
-            j = 0;
-
-            if (sscanf(str, &quot;%lf%lf%lf&quot;, &amp;x, &amp;y, &amp;z) == 3)
-            {
-                coorX.push_back(x);
-                coorY.push_back(y);
-                coorZ.push_back(z);
-            }
-            pCnt++;
-        } while (!in.eof());
-
-        //     cout &lt;&lt; &quot;******  ACSII FILES¡¡******&quot; &lt;&lt; endl;
-        //     for (int i = 0; i &lt; coorX.size();i++)
-        //     {
-        //         cout &lt;&lt; coorX[i] &lt;&lt; &quot; : &quot; &lt;&lt; coorY[i] &lt;&lt; &quot; : &quot; &lt;&lt; coorZ[i] &lt;&lt; endl;
-        //     }
-
-        cout &lt;&lt; coorX.size() / 3 &lt;&lt; &quot; triangles.&quot; &lt;&lt; endl;
-        return true;
+        cout &lt;&lt; &quot;Binary File.&quot; &lt;&lt; endl;
+        ReadBinary(cfilename);
+    }
+    return true;
     }
 
-        bool ReadBinary(const char *cfilename)
+
+
+    bool ReadASCII(const char *cfilename)
+{
+    std::vector&lt;float&gt; coorX;        //vector容器 So what is a vector?  vector是一个能够存放任意类型的动态数组，能够增加和压缩数据。
+    std::vector&lt;float&gt; coorY;        //创建一个空的float型的vector容器
+    std::vector&lt;float&gt; coorZ;
+
+    int i = 0, j = 0, cnt = 0, pCnt = 4;
+    char a[100];
+    char str[100];
+    double x = 0, y = 0, z = 0;
+
+    ifstream in;                    //第二种关联方法
+    in.open(cfilename, ios::in);
+    if (!in)
+        return false;
+    do
     {
-        std::vector&lt;float&gt; coorX;
-        std::vector&lt;float&gt; coorY;
-        std::vector&lt;float&gt; coorZ;
-
-        char str[80];
-        ifstream in;
-
-        in.open(cfilename, ios::in | ios::binary);
-
-        if (!in)
-            return false;
-
-        in.read(str, 80);
-
-        //number of triangles
-        int unTriangles;
-        in.read((char*)&amp;unTriangles, sizeof(int));
-
-        if (unTriangles == 0)
-            return false;
-
-        for (int i = 0; i &lt; unTriangles; i++)
+        i = 0;
+        cnt = 0;
+        in.getline(a, 100, &apos;\n&apos;);    //getline 方法
+        while (a[i] != &apos;\0&apos;)
         {
-            float coorXYZ[12];
-            in.read((char*)coorXYZ, 12 * sizeof(float));
-
-            for (int j = 1; j &lt; 4; j++)
-            {
-                coorX.push_back(coorXYZ[j * 3]);
-                coorY.push_back(coorXYZ[j * 3 + 1]);
-                coorZ.push_back(coorXYZ[j * 3 + 2]);
-            }
-
-            in.read((char*)coorXYZ, 2);
+            if (!islower((int)a[i]) &amp;&amp; !isupper((int)a[i]) &amp;&amp; a[i] != &apos; &apos;) 
+            break;
+            cnt++;
+            i++;
         }
 
-        in.close();
+        while (a[cnt] != &apos;\0&apos;)
+        {
+            str[j] = a[cnt];
+            cnt++;
+            j++;
+        }
+        str[j] = &apos;\0&apos;;
+        j = 0;
 
-        cout &lt;&lt; coorX.size() / 3 &lt;&lt; &quot; triangles.&quot; &lt;&lt; endl;
-        return true;
+        if (sscanf(str, &quot;%lf%lf%lf&quot;, &amp;x, &amp;y, &amp;z) == 3)
+        {
+            coorX.push_back(x);
+            coorY.push_back(y);
+            coorZ.push_back(z);
+        }
+        pCnt++;
+    } while (!in.eof());
+
+    //     cout &lt;&lt; &quot;******  ACSII FILES¡¡******&quot; &lt;&lt; endl;
+    //     for (int i = 0; i &lt; coorX.size();i++)
+    //     {
+    //         cout &lt;&lt; coorX[i] &lt;&lt; &quot; : &quot; &lt;&lt; coorY[i] &lt;&lt; &quot; : &quot; &lt;&lt; coorZ[i] &lt;&lt; endl;
+    //     }
+
+    cout &lt;&lt; coorX.size() / 3 &lt;&lt; &quot; triangles.&quot; &lt;&lt; endl;
+    return true;
+}
+
+    bool ReadBinary(const char *cfilename)
+{
+    std::vector&lt;float&gt; coorX;
+    std::vector&lt;float&gt; coorY;
+    std::vector&lt;float&gt; coorZ;
+
+    char str[80];
+    ifstream in;
+
+    in.open(cfilename, ios::in | ios::binary);
+
+    if (!in)
+        return false;
+
+    in.read(str, 80);
+
+    //number of triangles
+    int unTriangles;
+    in.read((char*)&amp;unTriangles, sizeof(int));
+
+    if (unTriangles == 0)
+        return false;
+
+    for (int i = 0; i &lt; unTriangles; i++)
+    {
+        float coorXYZ[12];
+        in.read((char*)coorXYZ, 12 * sizeof(float));
+
+        for (int j = 1; j &lt; 4; j++)
+        {
+            coorX.push_back(coorXYZ[j * 3]);
+            coorY.push_back(coorXYZ[j * 3 + 1]);
+            coorZ.push_back(coorXYZ[j * 3 + 2]);
+        }
+
+        in.read((char*)coorXYZ, 2);
     }
-</code></pre><p>reference(参考):<br><a href="https://zh.wikipedia.org/wiki/STL_(檔案格式" target="_blank" rel="noopener">stl</a>#二進碼_STL) <br><br><a href="https://blog.csdn.net/zhangsmile123456/article/details/48652825" target="_blank" rel="noopener">code</a><br></p>
+
+    in.close();
+
+    cout &lt;&lt; coorX.size() / 3 &lt;&lt; &quot; triangles.&quot; &lt;&lt; endl;
+    return true;
+}
+</code></pre><p>reference(参考):    </p>
+<blockquote>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/STL_(檔案格式" target="_blank" rel="noopener">stl</a>#二進碼_STL) <a href="https://blog.csdn.net/zhangsmile123456/article/details/48652825" target="_blank" rel="noopener">code</a><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
 <p><a href="https://www.cnblogs.com/batman425/p/3179520.html" target="_blank" rel="noopener">ifstream ofstream</a><br></p>
-<p><a href="http://www.cplusplus.com/reference/string/string/getline/" target="_blank" rel="noopener">string getline</a><br><br><a href="https://zhidao.baidu.com/question/377613227.html" target="_blank" rel="noopener">getline方法</a><br><a href="https://www.cnblogs.com/yxnchinahlj/archive/2011/03/06/1972435.html" target="_blank" rel="noopener">vector容器</a><br><br><a href="https://blog.csdn.net/u013630349/article/details/46853297" target="_blank" rel="noopener">vector容器</a></p>
-<p><a href="https://zhidao.baidu.com/question/498902441.html" target="_blank" rel="noopener">read函数</a><br><br><a href="http://www.cplusplus.com/reference/cstdio/sscanf/?kw=sscanf" target="_blank" rel="noopener">sscanf</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><a href="http://www.cplusplus.com/reference/string/string/getline/" target="_blank" rel="noopener">string getline</a> <a href="https://zhidao.baidu.com/question/377613227.html" target="_blank" rel="noopener">getline方法</a><br><a href="https://www.cnblogs.com/yxnchinahlj/archive/2011/03/06/1972435.html" target="_blank" rel="noopener">vector容器</a> <a href="https://blog.csdn.net/u013630349/article/details/46853297" target="_blank" rel="noopener">vector容器</a></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><a href="https://zhidao.baidu.com/question/498902441.html" target="_blank" rel="noopener">read函数</a> <a href="http://www.cplusplus.com/reference/cstdio/sscanf/?kw=sscanf" target="_blank" rel="noopener">sscanf</a></p>
+</blockquote>
+</blockquote>
 
       
     </div>

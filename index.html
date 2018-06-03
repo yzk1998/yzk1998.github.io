@@ -312,27 +312,59 @@
       
         
           
-            <p>Last week, except one exam that I didn’t passed, the only thing I did is the task guided by my teacher WanYi. It’s about read a file with .stl file format using c++.<br>However I haven’t learned c++. So it’s quite hard for me. And really made me feel annoying. But after waste my three or four hours, finally I settle into shape.<br>So let me talk about this.</p>
-<p>First question : What is the .stl file format ?<br>    So Why it calls “stl”?<br>        STereoLithography, 立体光刻<br>    Where is it being used?<br>        STL files describe only the surface geometry of a three-dimensional object without any representation of color, texture or other common CAD model attributes.<br>        The STL format specifies both ASCII and binary representations. Binary files are more common, since they are more compact.<br>        STL文件仅描述三维物体的表面几何形状，没有颜色、材质贴图或其它常见三维模型的属性。STL格式有文字和二进码两种型式。二进码型式因较简洁而较常见。<br>    How it works?<br>        An STL file describes a raw, unstructured triangulated surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles using a<br>        three-dimensional Cartesian coordinate system. In the original specification, all STL coordinates were required to be positive numbers, but this restriction<br>        is no longer enforced and negative coordinates are commonly encountered in STL files today. STL files contain no scale information, and the units are arbitrary.<br>        STL档描述原始非结构化三角网格由表面单位法线和由右手定则排序的顶点用三维笛卡儿座标系。STL座标必须是正数，没有尺度信息，且计量单位为任意的。<br>    How can it store the information?<br>        if it’s a ASCII STL file.<br>        solid name<br>        facet normal ni nj nk<br>            outer loop<br>                vertex v1x v1y v1z<br>                vertex v2x v2y v2z<br>                vertex v3x v3y v3z<br>            endloop<br>        endfacet<br>        endsolid name</p>
-<pre><code>if it&apos;s a Binary STL file.
-Because ASCII STL files can become very large, a binary version of STL exists. A binary STL file has an 80-character header (which is generally ignored, 
-but should never begin with &quot;solid&quot; because that will lead most software to assume that this is an ASCII STL file[citation needed]). Following the header 
-is a 4-byte little-endian unsigned integer indicating the number of triangular facets in the file. Following that is data describing each triangle in turn. 
-The file simply ends after the last triangle.Each triangle is described by twelve 32-bit floating-point numbers: three for the normal and then three for 
-the X/Y/Z coordinate of each vertex – just as with the ASCII version of STL. After these follows a 2-byte (&quot;short&quot;) unsigned integer that is the 
-&quot;attribute byte count&quot; – in the standard format, this should be zero because most software does not understand anything else.
-Floating-point numbers are represented as IEEE floating-point numbers and are assumed to be little-endian, although this is not stated in documentation.
-由于文字STL档会非常大，因此有二进码版的STL。二进码STL档有个80字符的标头（内容通常都被忽略但绝不可用&quot;solid&quot;来开始！这样会使不少软件认为这是文字STL档）。
-接着是一个4比特无号整数，它表示这文件中的三角形数。再来是描述每个三角形的信息。之后就结束。每个三角形以12个32位浮点数来描述：3个描述法线，
-接着三顶点的X/Y/Z座标─正如文字STL一样。之后是一个2比特无号整数(unsigned short)，它代表“属性字符数”─在标准格式中它该是0，因为多数软件不明白其它事项。
-虽然文件内没有说明，浮点数以little-endian的IEEE 754表示。
-Let&apos;s look what is the binary STL file real looks like.
-</code></pre><p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary_stl_rew.png" alt="image text"><br>                          二进制文件</p>
-<p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary.png" alt="image text"><br>                            内容解析</p>
+            <p>Last week, except one exam that I didn’t passed, the only thing I did is the task guided by my teacher WanYi. It’s about read a file with .stl file format using c++.<br><br>However I haven’t learned c++. So it’s quite hard for me. And really made me feel annoying. But after waste my three or four hours, finally I settle into shape.<br><br>So let me talk about this.<br></p>
+<hr>
+<h3 id="First-question-What-is-the-stl-file-format"><a href="#First-question-What-is-the-stl-file-format" class="headerlink" title="First question : What is the .stl file format ?"></a>First question : What is the .stl file format ?</h3><pre><code>So Why it calls &quot;stl&quot;? 
+    STereoLithography, 立体光刻
+Where is it being used?
+    STL files describe only the surface geometry of a three-dimensional object without any representation of color, texture or other common CAD model attributes. 
+    The STL format specifies both ASCII and binary representations. Binary files are more common, since they are more compact.
+    STL文件仅描述三维物体的表面几何形状，没有颜色、材质贴图或其它常见三维模型的属性。STL格式有文字和二进码两种型式。二进码型式因较简洁而较常见。
+How it works?
+    An STL file describes a raw, unstructured triangulated surface by the unit normal and vertices (ordered by the right-hand rule) of the triangles using a 
+    three-dimensional Cartesian coordinate system. In the original specification, all STL coordinates were required to be positive numbers, but this restriction 
+    is no longer enforced and negative coordinates are commonly encountered in STL files today. STL files contain no scale information, and the units are arbitrary.
+    STL档描述原始非结构化三角网格由表面单位法线和由右手定则排序的顶点用三维笛卡儿座标系。STL座标必须是正数，没有尺度信息，且计量单位为任意的。
+How can it store the information?
+    if it&apos;s a ASCII STL file.
+    solid name
+    facet normal ni nj nk
+        outer loop
+            vertex v1x v1y v1z
+            vertex v2x v2y v2z
+            vertex v3x v3y v3z
+        endloop
+    endfacet
+    endsolid name
+
+    if it&apos;s a Binary STL file.
+    Because ASCII STL files can become very large, a binary version of STL exists. A binary STL file has an 80-character header (which is generally ignored, 
+    but should never begin with &quot;solid&quot; because that will lead most software to assume that this is an ASCII STL file[citation needed]). Following the header 
+    is a 4-byte little-endian unsigned integer indicating the number of triangular facets in the file. Following that is data describing each triangle in turn. 
+    The file simply ends after the last triangle.Each triangle is described by twelve 32-bit floating-point numbers: three for the normal and then three for 
+    the X/Y/Z coordinate of each vertex – just as with the ASCII version of STL. After these follows a 2-byte (&quot;short&quot;) unsigned integer that is the 
+    &quot;attribute byte count&quot; – in the standard format, this should be zero because most software does not understand anything else.
+    Floating-point numbers are represented as IEEE floating-point numbers and are assumed to be little-endian, although this is not stated in documentation.
+    由于文字STL档会非常大，因此有二进码版的STL。二进码STL档有个80字符的标头（内容通常都被忽略但绝不可用&quot;solid&quot;来开始！这样会使不少软件认为这是文字STL档）。
+    接着是一个4比特无号整数，它表示这文件中的三角形数。再来是描述每个三角形的信息。之后就结束。每个三角形以12个32位浮点数来描述：3个描述法线，
+    接着三顶点的X/Y/Z座标─正如文字STL一样。之后是一个2比特无号整数(unsigned short)，它代表“属性字符数”─在标准格式中它该是0，因为多数软件不明白其它事项。
+    虽然文件内没有说明，浮点数以little-endian的IEEE 754表示。
+    Let&apos;s look what is the binary STL file real looks like.
+</code></pre><p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary_stl_rew.png" alt="image text"><br>                        二进制文件</p>
+<p><img src="https://raw.githubusercontent.com/yzk1998/images/master/binary.png" alt="image text"><br>                        内容解析</p>
 <pre><code>And you may ask Why we need normal?
     I don&apos;t know,too.
-</code></pre><p>Second question : How can we use c++ to read in the stl file format ?<br>    So if we have binary and ASCII file, how could we distinguish them?<br>        We know that ASCII style is begin with “solid”. So we can examine if it start with “s” or “solid” although this may seen stupid.<br>        code:<br>            The code is below. Because I am new for c++, I am going to expain it carefully.<br>            bool ReadSTLFile(const char *cfilename)    //oen question how can we assign a file name to a const char variaty ?<br>        {<br>            if (cfilename == NULL)<br>                return false;</p>
-<pre><code>        ifstream in(cfilename, ios::in);      //将变量与文件关联的方法有两个.一是像这样使用带参数的构造函数，创建一个文件对象(这个对象的类就是其前面的类)，关联硬盘上的物理文件 
+</code></pre><hr>
+<h3 id="Second-question-How-can-we-use-c-to-read-in-the-stl-file-format"><a href="#Second-question-How-can-we-use-c-to-read-in-the-stl-file-format" class="headerlink" title="Second question : How can we use c++ to read in the stl file format ?"></a>Second question : How can we use c++ to read in the stl file format ?</h3><pre><code>So if we have binary and ASCII file, how could we distinguish them?
+    We know that ASCII style is begin with &quot;solid&quot;. So we can examine if it start with &quot;s&quot; or &quot;solid&quot; although this may seen stupid.
+    code:
+        The code is below. Because I am new for c++, I am going to expain it carefully.
+        bool ReadSTLFile(const char *cfilename)    //oen question how can we assign a file name to a const char variaty ?
+    {
+        if (cfilename == NULL) 
+            return false;
+
+        ifstream in(cfilename, ios::in);      //将变量与文件关联的方法有两个.一是像这样使用带参数的构造函数，创建一个文件对象(这个对象的类就是其前面的类)，关联硬盘上的物理文件 
                                             //二是创建一个文件对象，但是开始并没关联任何文件，后来调用它的方法来显示关联一个物理文件。
         if (!in)
             return false;
@@ -458,16 +490,11 @@ Let&apos;s look what is the binary STL file real looks like.
         cout &lt;&lt; coorX.size() / 3 &lt;&lt; &quot; triangles.&quot; &lt;&lt; endl;
         return true;
     }
-reference:     https://zh.wikipedia.org/wiki/STL_(檔案格式)#二進碼_STL           stl
-            https://blog.csdn.net/zhangsmile123456/article/details/48652825 code
-            https://www.cnblogs.com/batman425/p/3179520.html                  ifstream ofstream
-            http://www.cplusplus.com/reference/string/string/getline/        string getline
-            https://zhidao.baidu.com/question/377613227.html                getline方法
-            https://www.cnblogs.com/yxnchinahlj/archive/2011/03/06/1972435.html vector容器
-            https://blog.csdn.net/u013630349/article/details/46853297            vector push_back 方法
-            https://zhidao.baidu.com/question/498902441.html                read()函数原型
-            http://www.cplusplus.com/reference/cstdio/sscanf/?kw=sscanf        sscanf()
-</code></pre>
+</code></pre><p>reference(参考):<br><a href="https://zh.wikipedia.org/wiki/STL_(檔案格式" target="_blank" rel="noopener">stl</a>#二進碼_STL) <br><br><a href="https://blog.csdn.net/zhangsmile123456/article/details/48652825" target="_blank" rel="noopener">code</a><br></p>
+<p><a href="https://www.cnblogs.com/batman425/p/3179520.html" target="_blank" rel="noopener">ifstream ofstream</a><br></p>
+<p><a href="http://www.cplusplus.com/reference/string/string/getline/" target="_blank" rel="noopener">string getline</a><br><br><a href="https://zhidao.baidu.com/question/377613227.html" target="_blank" rel="noopener">getline方法</a><br><a href="https://www.cnblogs.com/yxnchinahlj/archive/2011/03/06/1972435.html" target="_blank" rel="noopener">vector容器</a><br><br><a href="https://blog.csdn.net/u013630349/article/details/46853297" target="_blank" rel="noopener">vector容器</a></p>
+<p><a href="https://zhidao.baidu.com/question/498902441.html" target="_blank" rel="noopener">read函数</a><br><br><a href="http://www.cplusplus.com/reference/cstdio/sscanf/?kw=sscanf" target="_blank" rel="noopener">sscanf</a></p>
+
           
         
       

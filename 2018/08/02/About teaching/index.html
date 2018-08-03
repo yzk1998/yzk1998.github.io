@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="51," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="/* tdogl::Shader  Copyright 2012 Thomas Dalling - http://tomdalling.com/  Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the Licens">
+<meta name="description" content="Because of I am the only one of the hardware of LZUOSS, it seems like I need to teachnext generation of my community. But there is a big problem, exactly, after I pass theexam of entering OSS, I nearl">
+<meta name="keywords" content="51">
 <meta property="og:type" content="article">
-<meta property="og:title" content="the code I will see">
-<meta property="og:url" content="http://yzk1998.github.io/2018/06/14/the-code-I-will-see/index.html">
+<meta property="og:title" content="About teaching">
+<meta property="og:url" content="http://yzk1998.github.io/2018/08/02/About teaching/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="/* tdogl::Shader  Copyright 2012 Thomas Dalling - http://tomdalling.com/  Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the Licens">
+<meta property="og:description" content="Because of I am the only one of the hardware of LZUOSS, it seems like I need to teachnext generation of my community. But there is a big problem, exactly, after I pass theexam of entering OSS, I nearl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-18T02:29:02.435Z">
+<meta property="og:updated_time" content="2018-08-03T12:22:09.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="the code I will see">
-<meta name="twitter:description" content="/* tdogl::Shader  Copyright 2012 Thomas Dalling - http://tomdalling.com/  Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the Licens">
+<meta name="twitter:title" content="About teaching">
+<meta name="twitter:description" content="Because of I am the only one of the hardware of LZUOSS, it seems like I need to teachnext generation of my community. But there is a big problem, exactly, after I pass theexam of entering OSS, I nearl">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yzk1998.github.io/2018/06/14/the-code-I-will-see/"/>
+  <link rel="canonical" href="http://yzk1998.github.io/2018/08/02/About teaching/"/>
 
 
 
 
 
-  <title>the code I will see | Hexo</title>
+  <title>About teaching | Hexo</title>
   
 
 
@@ -244,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/06/14/the-code-I-will-see/">
+    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/08/02/About teaching/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Corry Yang">
@@ -261,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">the code I will see</h1>
+          <h1 class="post-title" itemprop="name headline">About teaching</h1>
         
 
         <div class="post-meta">
@@ -273,8 +274,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-14T17:03:54+08:00">
-                2018-06-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T17:29:39+08:00">
+                2018-08-02
               </time>
             
 
@@ -311,116 +312,8 @@
       
 
       
-        <p>/*<br> tdogl::Shader</p>
-<p> Copyright 2012 Thomas Dalling - <a href="http://tomdalling.com/" target="_blank" rel="noopener">http://tomdalling.com/</a></p>
-<p> Licensed under the Apache License, Version 2.0 (the “License”);<br> you may not use this file except in compliance with the License.<br> You may obtain a copy of the License at</p>
-<p> <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p> Unless required by applicable law or agreed to in writing, software<br> distributed under the License is distributed on an “AS IS” BASIS,<br> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br> See the License for the specific language governing permissions and<br> limitations under the License.<br> */</p>
-<p>#pragma once</p>
-<p>#include &lt;GL/glew.h&gt;</p>
-<p>#include <string></string></p>
-<p>namespace tdogl {</p>
-<pre><code>/**
- Represents a compiled OpenGL shader.
- */
-class Shader { 
-public:
-
-    /**
-     Creates a shader from a text file.
-
-     @param filePath    The path to the text file containing the shader source.
-     @param shaderType  Same as the argument to glCreateShader. For example GL_VERTEX_SHADER
-                        or GL_FRAGMENT_SHADER.
-
-     @throws std::exception if an error occurs.
-     */
-    static Shader shaderFromFile(const std::string&amp; filePath, GLenum shaderType);
-
-
-    /**
-     Creates a shader from a string of shader source code.
-
-     @param shaderCode  The source code for the shader.
-     @param shaderType  Same as the argument to glCreateShader. For example GL_VERTEX_SHADER
-                        or GL_FRAGMENT_SHADER.
-
-     @throws std::exception if an error occurs.
-     */
-    Shader(const std::string&amp; shaderCode, GLenum shaderType);
-
-
-    /**
-     @result The shader&apos;s object ID, as returned from glCreateShader
-     */
-    GLuint object() const;
-
-    // tdogl::Shader objects can be copied and assigned because they are reference counted
-    // like a shared pointer
-    Shader(const Shader&amp; other);
-    Shader&amp; operator =(const Shader&amp; other);
-    ~Shader();
-
-private:
-    GLuint _object;
-    unsigned* _refCount;
-
-    void _retain();
-    void _release();
-};
-</code></pre><p>}<br>/*<br> tdogl::Program</p>
-<p> Copyright 2012 Thomas Dalling - <a href="http://tomdalling.com/" target="_blank" rel="noopener">http://tomdalling.com/</a></p>
-<p> Licensed under the Apache License, Version 2.0 (the “License”);<br> you may not use this file except in compliance with the License.<br> You may obtain a copy of the License at</p>
-<p> <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p> Unless required by applicable law or agreed to in writing, software<br> distributed under the License is distributed on an “AS IS” BASIS,<br> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br> See the License for the specific language governing permissions and<br> limitations under the License.<br> */</p>
-<p>#pragma once</p>
-<p>#include “Shader.h”</p>
-<p>#include <vector></vector></p>
-<p>namespace tdogl {</p>
-<pre><code>/**
- Represents an OpenGL program made by linking shaders.
- */
-class Program { 
-public:
-    /**
-     Creates a program by linking a list of tdogl::Shader objects
-
-     @param shaders  The shaders to link together to make the program
-
-     @throws std::exception if an error occurs.
-
-     @see tdogl::Shader
-     */
-    Program(const std::vector&lt;Shader&gt;&amp; shaders);
-    ~Program();
-
-
-    /**
-     @result The program&apos;s object id, as returned from glCreateProgram
-     */
-    GLuint object() const;
-
-
-    /**
-     @result The attribute index for the given name, as returned from glGetAttribLocation.
-     */
-    GLint attrib(const GLchar* attribName) const;
-
-
-    /**
-     @result The uniform index for the given name, as returned from glGetUniformLocation.
-     */
-    GLint uniform(const GLchar* uniformName) const;
-
-
-private:
-    GLuint _object;
-
-    //copying disabled
-    Program(const Program&amp;);
-    const Program&amp; operator=(const Program&amp;);
-};
-</code></pre><p>}</p>
+        <p>Because of I am the only one of the hardware of LZUOSS, it seems like I need to teach<br>next generation of my community. But there is a big problem, exactly, after I pass the<br>exam of entering OSS, I nearly didn’t learned about hardware and it seems hard to pick<br>it up again. But I will try my best. </p>
+<p>Okey, after one sad month, I think I have recovered. So I think it’s time to work.<br>First, I want to recall last year when I was been teached. I think there are many problems.<br>I think it’s wrong to teach us too many about doing. I know my master may think we are<br>engineer so we need to do more, but there is a big problem is that we are rookie, too.<br>I even don’t know the theories of MCU. And what program language we used is c51. It is<br>different from c, but I don’t know. It confused me so much. And I think C51 is senior<br>program language. It is not clear and cool. So I the program language I want to teach is<br>asm and c. Because It’s special, cool and hard. I want my student have computer mind.<br>I want they how computers really work. </p>
 
       
     </div>
@@ -435,6 +328,12 @@ private:
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/51/" rel="tag"># 51</a>
+          
+        </div>
       
 
       
@@ -454,6 +353,10 @@ private:
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/02/51汇编指令/" rel="prev" title="51汇编指令">
+                51汇编指令 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -525,7 +428,7 @@ private:
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +441,7 @@ private:
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

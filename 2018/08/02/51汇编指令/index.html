@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="DeepLearning," />
+  <meta name="keywords" content="asm," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在一段时间后的深度学习后发现了一些理论上的问题，写这篇博客主要是为了积累和解答这些问题。">
-<meta name="keywords" content="DeepLearning">
+<meta name="description" content="指令包括 数据传送指令 算术运算指令 逻辑运算指令 控制转移指令助记符                     功能说明                              字节数  振荡器周期MOV Rn，A                 累加器内容传送到工作寄存器               1          12MOV Rn， direct         直接寻址字节传送到工作">
+<meta name="keywords" content="asm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="postdeeplearning学习中的一些理论上的问题">
-<meta property="og:url" content="http://yzk1998.github.io/2018/05/11/postdeeplearning学习中的一些理论上的问题/index.html">
+<meta property="og:title" content="51汇编指令">
+<meta property="og:url" content="http://yzk1998.github.io/2018/08/02/51汇编指令/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在一段时间后的深度学习后发现了一些理论上的问题，写这篇博客主要是为了积累和解答这些问题。">
+<meta property="og:description" content="指令包括 数据传送指令 算术运算指令 逻辑运算指令 控制转移指令助记符                     功能说明                              字节数  振荡器周期MOV Rn，A                 累加器内容传送到工作寄存器               1          12MOV Rn， direct         直接寻址字节传送到工作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-11T09:47:03.397Z">
+<meta property="og:updated_time" content="2018-08-03T12:22:12.256Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="postdeeplearning学习中的一些理论上的问题">
-<meta name="twitter:description" content="在一段时间后的深度学习后发现了一些理论上的问题，写这篇博客主要是为了积累和解答这些问题。">
+<meta name="twitter:title" content="51汇编指令">
+<meta name="twitter:description" content="指令包括 数据传送指令 算术运算指令 逻辑运算指令 控制转移指令助记符                     功能说明                              字节数  振荡器周期MOV Rn，A                 累加器内容传送到工作寄存器               1          12MOV Rn， direct         直接寻址字节传送到工作">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yzk1998.github.io/2018/05/11/postdeeplearning学习中的一些理论上的问题/"/>
+  <link rel="canonical" href="http://yzk1998.github.io/2018/08/02/51汇编指令/"/>
 
 
 
 
 
-  <title>postdeeplearning学习中的一些理论上的问题 | Hexo</title>
+  <title>51汇编指令 | Hexo</title>
   
 
 
@@ -245,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/05/11/postdeeplearning学习中的一些理论上的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/08/02/51汇编指令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Corry Yang">
@@ -262,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">postdeeplearning学习中的一些理论上的问题</h1>
+          <h1 class="post-title" itemprop="name headline">51汇编指令</h1>
         
 
         <div class="post-meta">
@@ -274,8 +274,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-11T17:32:33+08:00">
-                2018-05-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T22:48:24+08:00">
+                2018-08-02
               </time>
             
 
@@ -312,7 +312,9 @@
       
 
       
-        <p>在一段时间后的深度学习后发现了一些理论上的问题，写这篇博客主要是为了积累和解答这些问题。</p>
+        <p>指令<br>包括 数据传送指令 算术运算指令 逻辑运算指令 控制转移指令<br>助记符                     功能说明                              字节数  振荡器周期<br>MOV Rn，A                 累加器内容传送到工作寄存器               1          12<br>MOV Rn， direct         直接寻址字节传送到工作寄存器           2         24<br>MOV Rn， #data             立即数传送到工作寄存器                2         12<br>MOV direct，A              累加器内容传送到直接寻址字节           2         12<br>MOV direct，Rn          工作寄存器内容传送到直接寻址字节        2         24<br>MOV direct，direct         直接寻址字节传送到直接寻址字节        3            24<br>MOV direct，@Ri          间接 RAM 传送到直接寻址字节            2          24<br>MOV direct，#data          立即数传送到直接寻址字节                3         24<br>MOV @Ri，A              累加器内容传送到间接寻址 RAM            1            12<br>MOV @Ri, direct            直接寻址字节传送到间接寻址 RAM        2         24<br>MOV @Ri，#data             立即数传送到间接寻址 RAM                2            12<br>MOV DPTR，#data16        16位立即数传送到地址寄存器            3         24<br>MOVX A，@Ri              外部 RAM（8 位地址）传送到累加器        1            24<br>MOVX A，@DPTR             外部 RAM（16 位地址）传送到累加器        1            24<br>MOVX @Ri，A              累加器传送到外部 RAM（8 位地址）        1            24<br>MOVX @DPTR，A              累加器传送到外部 RAM（16 位地址）     1         24<br>MOVC A，@A+DPTR          程序存储器字节传送到累加器            1         24<br>MOVC A，@A+PC             程序存储器字节传送到累加器            1            24<br>SWAP A                  累加器内半字节交换                    1            12<br>XCHD A，@Ri              间接寻址 RAM 和累加器低半字节交换     1         12<br>XCH A，Rn                 寄存器和累加器交换                    1         12<br>XCH A，direct             直接寻址字节和累加器交换                2         12<br>XCH A，@Ri                  间接寻址 RAM 和累加器交换                1            12<br>PUSH direct                 直接寻址字节压入栈顶                    2         24<br>POP direct                  栈顶弹到直接寻址字节                    2         24<br>ADD A，Rn                 寄存器内容加到累加器                    1             12<br>ADD A，direct              直接寻址字节内容加到累加器            2          12<br>ADD A，@Ri              间接寻址 RAM 内容加到累加器           1         12<br>ADD A，#data              立即数加到累加器                        2         12<br>ADDC A，Rn              寄存器加到累加器（带进位）               1          12<br>ADDC A，direct          直接寻址字节加到累加器（带进位）      2         12<br>ADDC A，@Ri              间接寻址 RAM 加到累加器（带进位）     1          12<br>ADDC A，#data              立即数加到累加器（带进位）               2          12<br>SUBB A，Rn              累加器内容减去寄存器内容（带借位）    1          12<br>SUBB A，direct          累加器内容减去直接寻址字节（带借位）  2          12<br>SUBB A，@Ri              累加器内容减去间接寻址 RAM（带借位）  1          12<br>SUBB A，#data              累加器减去立即数（带借位）              2         12<br>DA A                      累加器十进制调整                        1          12<br>INC A                      累加器加 1                               2          12<br>INC Rn                  寄存器加 1                               1          12<br>INC direct              直接寻址字节加 1                       2          12<br>INC @Ri                  间接寻址 RAM 加 1                       1         12<br>INC DPTR                  数据指针寄存器加 1                       1            12<br>DEC A                      累加器减 1                            1         12<br>DEC Rn                  寄存器减 1                               1          12<br>DEC direct                 直接寻址地址节减 1                    2         12<br>DEC @Ri                  间接寻址 RAM 减 1                       1          12<br>MUL AB                  累加器 A 和寄存器 B 相乘               1          12<br>DIV AB                  累加器 A 除以寄存器 B                    1          12<br>ANL A，Rn                  寄存器“与”到累加器                       1         12<br>ANL A，direct              直接寻址字节“与”到累加器               2            12<br>ANL A，@Ri              间接寻址 RAM“与”到累加器                1         12<br>ANL A，#data              立即数“与”到累加器                       2         12<br>ANL direct，A              累加器“与”到直接寻址字节               2           12<br>ANL direct，#data          立即数“与”直接寻址字节                3           12<br>ORL A，@Rn              寄存器“与”到累加器                    1           12<br>ORL A，#direct          直接寻址字节“域”到累加器                2          12<br>ORL A，Ri                  间接寻址 RAM“域”到累加器               1          12<br>ORL A，#data              立即数“域”到累加器                    2         12<br>ORL direct，A              累加器“域”到直接寻址字节                2          12<br>ORL direct，#data          立即数“域”到直接寻址字节                3          12<br>XRL A，Rn                  寄存器“异或”到累加器                   1         12<br>XRL A，direct              直接寻址字节“异或”到累加器               2            12<br>XRL A，@Ri              间接寻址 RAM“异或”到累加器               1          12<br>XRL A，#data              立即数“异或”到累加器                    2          12<br>XRL direct，A              累加器“异或”到直接寻址字节            2         12<br>XRL direct，#data          立即数“异或”到直接寻址字节            3         12<br>RL A                      累加器循环左移                        1         12<br>RLC A                      经过进位位的累加器循环左移                1         12<br>RR A                      累加器循环右移                        1          12<br>RRC A                      经过进位位的累加顺循环右移            1         12<br>CLR A                      累加器清零                               1          12<br>CPL A                      累加器求反                            1         12<br>LJMP addr16              长转移                                3         24<br>AJMP addr11             绝对转移                                2          24<br>SJMP rel                  短转移（相对偏移）                       2         24<br>JMP @A+DPTR              相对 DPTR 的间接转移                    1          24<br>JZ rel                  累加器为零则转移                        2          24<br>JNZ rel                  累加器为非零则转移                    2          24<br>CJNE A，direct，rel     比较直接寻址字节和 A 不相等则转移     3          24<br>CJNE A，#data，rel      比较立即数和 A 不相等则转移           3          24<br>CJNE Rn，#data，rel      比较立即数和寄存器不相等则转移        3          24<br>CJNE @Ri，#data，rel      比较立即数和间接寻址 RAM 不相等则转移 3          24<br>DJNZ Rn，rel              寄存器减 1 不为零则转移                2          24<br>DJNZ direct，rel          直接寻址字节减 1 不为零则转移         3          24<br>ACALL addr11              绝对调用子程序                        2          24<br>LCALL addr16              长调用子程序                            3          24<br>RET                      从子程序返回                            1          24<br>RETI                      从中断返回                            1          24<br>NOP                      空操作                                1          12<br>MOV C，bit<br>MOV bit，C<br>CLR C<br>CLR bit<br>CPL C<br>CPL bit<br>SETB C<br>SETB bit<br>ANL C，bit<br>ANL C，/bit<br>ORL C，bit<br>ORL C，/bit</p>
+<p>伪指令</p>
+<p>ORG<br>DB<br>DW<br>DS<br>EQU<br>DATA<br>BIT<br>END</p>
 
       
     </div>
@@ -330,7 +332,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DeepLearning/" rel="tag"># DeepLearning</a>
+            <a href="/tags/asm/" rel="tag"># asm</a>
           
         </div>
       
@@ -343,8 +345,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/11/posttensorflow源码慢慢翻译/" rel="next" title="posttensorflow源码慢慢翻译">
-                <i class="fa fa-chevron-left"></i> posttensorflow源码慢慢翻译
+              <a href="/2018/08/02/About teaching/" rel="next" title="About teaching">
+                <i class="fa fa-chevron-left"></i> About teaching
               </a>
             
           </div>
@@ -352,10 +354,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/02/postc-读入stl文件/" rel="prev" title="postc++读入stl文件">
-                postc++读入stl文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

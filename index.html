@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/06/14/the-code-I-will-see/">
+    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/08/02/51汇编指令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Corry Yang">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/14/the-code-I-will-see/" itemprop="url">the code I will see</a></h1>
+                <a class="post-title-link" href="/2018/08/02/51汇编指令/" itemprop="url">51汇编指令</a></h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-14T17:03:54+08:00">
-                2018-06-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T22:48:24+08:00">
+                2018-08-02
               </time>
             
 
@@ -312,116 +312,130 @@
       
         
           
-            <p>/*<br> tdogl::Shader</p>
-<p> Copyright 2012 Thomas Dalling - <a href="http://tomdalling.com/" target="_blank" rel="noopener">http://tomdalling.com/</a></p>
-<p> Licensed under the Apache License, Version 2.0 (the “License”);<br> you may not use this file except in compliance with the License.<br> You may obtain a copy of the License at</p>
-<p> <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p> Unless required by applicable law or agreed to in writing, software<br> distributed under the License is distributed on an “AS IS” BASIS,<br> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br> See the License for the specific language governing permissions and<br> limitations under the License.<br> */</p>
-<p>#pragma once</p>
-<p>#include &lt;GL/glew.h&gt;</p>
-<p>#include <string></string></p>
-<p>namespace tdogl {</p>
-<pre><code>/**
- Represents a compiled OpenGL shader.
- */
-class Shader { 
-public:
+            <p>指令<br>包括 数据传送指令 算术运算指令 逻辑运算指令 控制转移指令<br>助记符                     功能说明                              字节数  振荡器周期<br>MOV Rn，A                 累加器内容传送到工作寄存器               1          12<br>MOV Rn， direct         直接寻址字节传送到工作寄存器           2         24<br>MOV Rn， #data             立即数传送到工作寄存器                2         12<br>MOV direct，A              累加器内容传送到直接寻址字节           2         12<br>MOV direct，Rn          工作寄存器内容传送到直接寻址字节        2         24<br>MOV direct，direct         直接寻址字节传送到直接寻址字节        3            24<br>MOV direct，@Ri          间接 RAM 传送到直接寻址字节            2          24<br>MOV direct，#data          立即数传送到直接寻址字节                3         24<br>MOV @Ri，A              累加器内容传送到间接寻址 RAM            1            12<br>MOV @Ri, direct            直接寻址字节传送到间接寻址 RAM        2         24<br>MOV @Ri，#data             立即数传送到间接寻址 RAM                2            12<br>MOV DPTR，#data16        16位立即数传送到地址寄存器            3         24<br>MOVX A，@Ri              外部 RAM（8 位地址）传送到累加器        1            24<br>MOVX A，@DPTR             外部 RAM（16 位地址）传送到累加器        1            24<br>MOVX @Ri，A              累加器传送到外部 RAM（8 位地址）        1            24<br>MOVX @DPTR，A              累加器传送到外部 RAM（16 位地址）     1         24<br>MOVC A，@A+DPTR          程序存储器字节传送到累加器            1         24<br>MOVC A，@A+PC             程序存储器字节传送到累加器            1            24<br>SWAP A                  累加器内半字节交换                    1            12<br>XCHD A，@Ri              间接寻址 RAM 和累加器低半字节交换     1         12<br>XCH A，Rn                 寄存器和累加器交换                    1         12<br>XCH A，direct             直接寻址字节和累加器交换                2         12<br>XCH A，@Ri                  间接寻址 RAM 和累加器交换                1            12<br>PUSH direct                 直接寻址字节压入栈顶                    2         24<br>POP direct                  栈顶弹到直接寻址字节                    2         24<br>ADD A，Rn                 寄存器内容加到累加器                    1             12<br>ADD A，direct              直接寻址字节内容加到累加器            2          12<br>ADD A，@Ri              间接寻址 RAM 内容加到累加器           1         12<br>ADD A，#data              立即数加到累加器                        2         12<br>ADDC A，Rn              寄存器加到累加器（带进位）               1          12<br>ADDC A，direct          直接寻址字节加到累加器（带进位）      2         12<br>ADDC A，@Ri              间接寻址 RAM 加到累加器（带进位）     1          12<br>ADDC A，#data              立即数加到累加器（带进位）               2          12<br>SUBB A，Rn              累加器内容减去寄存器内容（带借位）    1          12<br>SUBB A，direct          累加器内容减去直接寻址字节（带借位）  2          12<br>SUBB A，@Ri              累加器内容减去间接寻址 RAM（带借位）  1          12<br>SUBB A，#data              累加器减去立即数（带借位）              2         12<br>DA A                      累加器十进制调整                        1          12<br>INC A                      累加器加 1                               2          12<br>INC Rn                  寄存器加 1                               1          12<br>INC direct              直接寻址字节加 1                       2          12<br>INC @Ri                  间接寻址 RAM 加 1                       1         12<br>INC DPTR                  数据指针寄存器加 1                       1            12<br>DEC A                      累加器减 1                            1         12<br>DEC Rn                  寄存器减 1                               1          12<br>DEC direct                 直接寻址地址节减 1                    2         12<br>DEC @Ri                  间接寻址 RAM 减 1                       1          12<br>MUL AB                  累加器 A 和寄存器 B 相乘               1          12<br>DIV AB                  累加器 A 除以寄存器 B                    1          12<br>ANL A，Rn                  寄存器“与”到累加器                       1         12<br>ANL A，direct              直接寻址字节“与”到累加器               2            12<br>ANL A，@Ri              间接寻址 RAM“与”到累加器                1         12<br>ANL A，#data              立即数“与”到累加器                       2         12<br>ANL direct，A              累加器“与”到直接寻址字节               2           12<br>ANL direct，#data          立即数“与”直接寻址字节                3           12<br>ORL A，@Rn              寄存器“与”到累加器                    1           12<br>ORL A，#direct          直接寻址字节“域”到累加器                2          12<br>ORL A，Ri                  间接寻址 RAM“域”到累加器               1          12<br>ORL A，#data              立即数“域”到累加器                    2         12<br>ORL direct，A              累加器“域”到直接寻址字节                2          12<br>ORL direct，#data          立即数“域”到直接寻址字节                3          12<br>XRL A，Rn                  寄存器“异或”到累加器                   1         12<br>XRL A，direct              直接寻址字节“异或”到累加器               2            12<br>XRL A，@Ri              间接寻址 RAM“异或”到累加器               1          12<br>XRL A，#data              立即数“异或”到累加器                    2          12<br>XRL direct，A              累加器“异或”到直接寻址字节            2         12<br>XRL direct，#data          立即数“异或”到直接寻址字节            3         12<br>RL A                      累加器循环左移                        1         12<br>RLC A                      经过进位位的累加器循环左移                1         12<br>RR A                      累加器循环右移                        1          12<br>RRC A                      经过进位位的累加顺循环右移            1         12<br>CLR A                      累加器清零                               1          12<br>CPL A                      累加器求反                            1         12<br>LJMP addr16              长转移                                3         24<br>AJMP addr11             绝对转移                                2          24<br>SJMP rel                  短转移（相对偏移）                       2         24<br>JMP @A+DPTR              相对 DPTR 的间接转移                    1          24<br>JZ rel                  累加器为零则转移                        2          24<br>JNZ rel                  累加器为非零则转移                    2          24<br>CJNE A，direct，rel     比较直接寻址字节和 A 不相等则转移     3          24<br>CJNE A，#data，rel      比较立即数和 A 不相等则转移           3          24<br>CJNE Rn，#data，rel      比较立即数和寄存器不相等则转移        3          24<br>CJNE @Ri，#data，rel      比较立即数和间接寻址 RAM 不相等则转移 3          24<br>DJNZ Rn，rel              寄存器减 1 不为零则转移                2          24<br>DJNZ direct，rel          直接寻址字节减 1 不为零则转移         3          24<br>ACALL addr11              绝对调用子程序                        2          24<br>LCALL addr16              长调用子程序                            3          24<br>RET                      从子程序返回                            1          24<br>RETI                      从中断返回                            1          24<br>NOP                      空操作                                1          12<br>MOV C，bit<br>MOV bit，C<br>CLR C<br>CLR bit<br>CPL C<br>CPL bit<br>SETB C<br>SETB bit<br>ANL C，bit<br>ANL C，/bit<br>ORL C，bit<br>ORL C，/bit</p>
+<p>伪指令</p>
+<p>ORG<br>DB<br>DW<br>DS<br>EQU<br>DATA<br>BIT<br>END</p>
 
-    /**
-     Creates a shader from a text file.
+          
+        
+      
+    </div>
+    
+    
+    
 
-     @param filePath    The path to the text file containing the shader source.
-     @param shaderType  Same as the argument to glCreateShader. For example GL_VERTEX_SHADER
-                        or GL_FRAGMENT_SHADER.
+    
 
-     @throws std::exception if an error occurs.
-     */
-    static Shader shaderFromFile(const std::string&amp; filePath, GLenum shaderType);
+    
 
+    
 
-    /**
-     Creates a shader from a string of shader source code.
+    <footer class="post-footer">
+      
 
-     @param shaderCode  The source code for the shader.
-     @param shaderType  Same as the argument to glCreateShader. For example GL_VERTEX_SHADER
-                        or GL_FRAGMENT_SHADER.
+      
 
-     @throws std::exception if an error occurs.
-     */
-    Shader(const std::string&amp; shaderCode, GLenum shaderType);
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
 
 
-    /**
-     @result The shader&apos;s object ID, as returned from glCreateShader
-     */
-    GLuint object() const;
+    
+      
 
-    // tdogl::Shader objects can be copied and assigned because they are reference counted
-    // like a shared pointer
-    Shader(const Shader&amp; other);
-    Shader&amp; operator =(const Shader&amp; other);
-    ~Shader();
+  
 
-private:
-    GLuint _object;
-    unsigned* _refCount;
+  
+  
+  
 
-    void _retain();
-    void _release();
-};
-</code></pre><p>}<br>/*<br> tdogl::Program</p>
-<p> Copyright 2012 Thomas Dalling - <a href="http://tomdalling.com/" target="_blank" rel="noopener">http://tomdalling.com/</a></p>
-<p> Licensed under the Apache License, Version 2.0 (the “License”);<br> you may not use this file except in compliance with the License.<br> You may obtain a copy of the License at</p>
-<p> <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p> Unless required by applicable law or agreed to in writing, software<br> distributed under the License is distributed on an “AS IS” BASIS,<br> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br> See the License for the specific language governing permissions and<br> limitations under the License.<br> */</p>
-<p>#pragma once</p>
-<p>#include “Shader.h”</p>
-<p>#include <vector></vector></p>
-<p>namespace tdogl {</p>
-<pre><code>/**
- Represents an OpenGL program made by linking shaders.
- */
-class Program { 
-public:
-    /**
-     Creates a program by linking a list of tdogl::Shader objects
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yzk1998.github.io/2018/08/02/About teaching/">
 
-     @param shaders  The shaders to link together to make the program
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Corry Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ab6207ab13ce36d3b6098b625b9a51e2/9e3df8dcd100baa13dc6bcca4110b912c9fc2edd.jpg">
+    </span>
 
-     @throws std::exception if an error occurs.
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
 
-     @see tdogl::Shader
-     */
-    Program(const std::vector&lt;Shader&gt;&amp; shaders);
-    ~Program();
+    
+      <header class="post-header">
 
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/02/About teaching/" itemprop="url">About teaching</a></h1>
+        
 
-    /**
-     @result The program&apos;s object id, as returned from glCreateProgram
-     */
-    GLuint object() const;
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T17:29:39+08:00">
+                2018-08-02
+              </time>
+            
 
+            
 
-    /**
-     @result The attribute index for the given name, as returned from glGetAttribLocation.
-     */
-    GLint attrib(const GLchar* attribName) const;
+            
+          </span>
 
+          
 
-    /**
-     @result The uniform index for the given name, as returned from glGetUniformLocation.
-     */
-    GLint uniform(const GLchar* uniformName) const;
+          
+            
+          
 
+          
+          
 
-private:
-    GLuint _object;
+          
 
-    //copying disabled
-    Program(const Program&amp;);
-    const Program&amp; operator=(const Program&amp;);
-};
-</code></pre><p>}</p>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Because of I am the only one of the hardware of LZUOSS, it seems like I need to teach<br>next generation of my community. But there is a big problem, exactly, after I pass the<br>exam of entering OSS, I nearly didn’t learned about hardware and it seems hard to pick<br>it up again. But I will try my best. </p>
+<p>Okey, after one sad month, I think I have recovered. So I think it’s time to work.<br>First, I want to recall last year when I was been teached. I think there are many problems.<br>I think it’s wrong to teach us too many about doing. I know my master may think we are<br>engineer so we need to do more, but there is a big problem is that we are rookie, too.<br>I even don’t know the theories of MCU. And what program language we used is c51. It is<br>different from c, but I don’t know. It confused me so much. And I think C51 is senior<br>program language. It is not clear and cool. So I the program language I want to teach is<br>asm and c. Because It’s special, cool and hard. I want my student have computer mind.<br>I want they how computers really work. </p>
 
           
         
@@ -1837,7 +1851,7 @@ supporting branches: 生命周期有限,会被删除
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1850,7 +1864,7 @@ supporting branches: 生命周期有限,会被删除
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

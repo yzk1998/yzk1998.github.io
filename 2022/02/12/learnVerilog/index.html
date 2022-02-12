@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Verilog 语法复习笔记（一） | 行路难</title><meta name="keywords" content="verilog"><meta name="author" content="YZK"><meta name="copyright" content="YZK"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="verilog基本语法复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Verilog 语法复习笔记（一）">
+<meta property="og:url" content="https://yzk1998.github.io/2022/02/12/learnVerilog/index.html">
+<meta property="og:site_name" content="行路难">
+<meta property="og:description" content="verilog基本语法复习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yzk1998.github.io/img/defaultTop.jpg">
+<meta property="article:published_time" content="2022-02-12T04:40:44.000Z">
+<meta property="article:modified_time" content="2022-02-12T09:46:37.854Z">
+<meta property="article:author" content="YZK">
+<meta property="article:tag" content="verilog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yzk1998.github.io/img/defaultTop.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yzk1998.github.io/2022/02/12/learnVerilog/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":100},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":200,"languages":{"author":"作者: YZK","link":"链接: ","source":"来源: 行路难","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Verilog 语法复习笔记（一）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-12 17:46:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/./img/defaultTop.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">行路难</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Verilog 语法复习笔记（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-12T04:40:44.000Z" title="发表于 2022-02-12 12:40:44">2022-02-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-12T09:46:37.854Z" title="更新于 2022-02-12 17:46:37">2022-02-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/verilog/">verilog</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Verilog 语法复习笔记（一）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Verilog 语法复习笔记（一）</h1>
+<h2 id="逻辑值">逻辑值</h2>
+<ul>
+<li>0: 低电平</li>
+<li>1: 高电平</li>
+<li>X：未知(可能为高电平也可能为低电平)</li>
+<li>Z: 高阻态(对外部相当于断开)</li>
+</ul>
+<hr>
+<h2 id="标识符">标识符</h2>
+<h3 id="命名规则">命名规则</h3>
+<ol>
+<li>字母、数字、$、_</li>
+<li>首字符必须为字母或者下划线</li>
+<li>区分大小写</li>
+</ol>
+<h3 id="规范建议">规范建议</h3>
+<ol>
+<li>使用有意义的名字</li>
+<li>采用一些前后缀比如：
+<ul>
+<li>时钟采用<code>clk</code>前缀：<code>clk_50m</code>，<code>clk_cpu</code></li>
+<li>低电平采用_n后缀：<code>enable_n</code></li>
+</ul>
+</li>
+<li>对于特殊重要的信号采用统一缩写，如<code>rst</code></li>
+<li>同意信号在不同层次要保持一致</li>
+<li>参数统一大写</li>
+</ol>
+<h3 id="数字">数字</h3>
+<ol>
+<li>默认形式为32位十进制</li>
+<li>
+<ul>
+<li>4’b0101表示4位二进制数0101</li>
+<li>4’d2表示4位十进制数字2</li>
+<li>4’ha表示4位十六进制数字a</li>
+</ul>
+</li>
+</ol>
+<p>疑问：此处所指的位数是本进制数字的位数，还是二进制数字的位数？</p>
+<h3 id="数据类型"><em><strong>数据类型</strong></em></h3>
+<p>主要分为三大数据类型：</p>
+<ul>
+<li>寄存器类型</li>
+<li>线网类型</li>
+<li>参数类型</li>
+</ul>
+<h4 id="寄存器类型">寄存器类型</h4>
+<p>含义：表示一个抽象的数据存储单元<br></p>
+<p>注意点：</p>
+<ol>
+<li>只能在always语句和initial语句中被赋值</li>
+<li>默认值为X</li>
+<li>若过程语句描述的是时序逻辑，则寄存器变量为寄存器；而若描述的是组合逻辑，则寄存器变量为对应的硬件连线。</li>
+</ol>
+<p>常见寄存器数据类型:<code>reg</code>,<code>integer</code>,<code>real</code>等</p>
+<p>疑问：过程语句？</p>
+<h4 id="线网类型">线网类型</h4>
+<p>含义：表示verilog结构化原件间的物理连线。</p>
+<p>注意点：</p>
+<ol>
+<li>线网类型的值由驱动元件的值决定</li>
+<li>默认值为Z</li>
+</ol>
+<p>常见线网类型：<code>wire</code>,<code>tri</code>等</p>
+<h4 id="参数类型">参数类型</h4>
+<p>含义：常量</p>
+<p>注意点：</p>
+<ol>
+<li>参数的定义是局部的，只在当前模块下有效。</li>
+<li>关键字<code>parameter</code></li>
+</ol>
+<h3 id="运算符">运算符</h3>
+<p>按功能可以分为7类运算符：</p>
+<ul>
+<li>算术运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+<li>条件运算符</li>
+<li>位运算符</li>
+<li>拼接运算符</li>
+</ul>
+<h4 id="算术运算符">算术运算符</h4>
+<ol>
+<li><code>+</code></li>
+<li><code>-</code></li>
+<li><code>*</code></li>
+<li><code>/</code></li>
+<li><code>%</code></li>
+</ol>
+<h4 id="关系运算符">关系运算符</h4>
+<ol>
+<li><code>&gt;</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;=</code></li>
+<li><code>==</code></li>
+<li><code>!=</code></li>
+</ol>
+<h4 id="逻辑运算符">逻辑运算符</h4>
+<ol>
+<li><code>!</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+</ol>
+<h4 id="条件运算符">条件运算符</h4>
+<ol>
+<li><code>?:</code></li>
+</ol>
+<h4 id="位运算符">位运算符</h4>
+<ol>
+<li><code>~</code></li>
+<li><code>&amp;</code></li>
+<li><code>|</code></li>
+<li><code>^</code></li>
+</ol>
+<h4 id="移位运算符">移位运算符</h4>
+<ol>
+<li><code>&lt;&lt;</code></li>
+<li><code>&gt;&gt;</code></li>
+</ol>
+<h4 id="拼接运算符">拼接运算符</h4>
+<ol>
+<li><code>&#123;&#125;</code></li>
+</ol>
+<h4 id="运算符优先级">运算符优先级</h4>
+<div align="center">
+<img src=..\img\poiror.png />
+</div>
+<h3 id="程序框架">程序框架</h3>
+<h4 id="注释-与c语言相同">注释(与c语言相同)</h4>
+<h4 id="关键字">关键字</h4>
+<div align="center">
+<img src=../img/keyword.png />
+</div>
+<h4 id="程序框架-2">程序框架</h4>
+<p>框架例程</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> led( </span><br><span class="line">    <span class="keyword">input</span>               sys_clk  ,  <span class="comment">//系统时钟 </span></span><br><span class="line">    <span class="keyword">input</span>               sys_rst_n,  <span class="comment">//系统复位，低电平有效 </span></span><br><span class="line">    <span class="keyword">output</span>  <span class="keyword">reg</span>  [<span class="number">3</span>:<span class="number">0</span>]  led         <span class="comment">//4位LED灯 </span></span><br><span class="line">    ); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//parameter define </span></span><br><span class="line"><span class="keyword">parameter</span>  WIDTH     = <span class="number">25</span>        ;  <span class="comment">//位宽</span></span><br><span class="line"><span class="keyword">parameter</span>  COUNT_MAX = <span class="number">25_000_000</span>;  <span class="comment">//板载50M时钟=20ns，0.5s/20ns=25000000，需要25bit </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//reg define </span></span><br><span class="line"><span class="keyword">reg</span>    [WIDTH-<span class="number">1</span>:<span class="number">0</span>]  counter     ; </span><br><span class="line"><span class="keyword">reg</span>    [<span class="number">1</span>:<span class="number">0</span>]        led_ctrl_cnt; </span><br><span class="line"></span><br><span class="line"><span class="comment">//wire define </span></span><br><span class="line"><span class="keyword">wire</span>                counter_en  ; </span><br><span class="line"></span><br><span class="line"><span class="comment">//*********************************************************************************** </span></span><br><span class="line"><span class="comment">//**                                 main code </span></span><br><span class="line"><span class="comment">//*********************************************************************************** </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//计数到最大值时产生高电平使能信号 </span></span><br><span class="line"><span class="keyword">assign</span>  counter_en = (counter == (COUNT_MAX - <span class="number">1&#x27;b1</span>))  ?  <span class="number">1&#x27;b1</span>  :  <span class="number">1&#x27;b0</span>;   </span><br><span class="line"></span><br><span class="line"><span class="comment">//用于产生0.5秒使能信号的计数器 </span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> sys_rst_n) <span class="keyword">begin</span> </span><br><span class="line">    <span class="keyword">if</span> (sys_rst_n == <span class="number">1&#x27;b0</span>) </span><br><span class="line">        counter &lt;= <span class="number">1&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (counter_en) </span><br><span class="line">        counter &lt;= <span class="number">1&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        counter &lt;= counter + <span class="number">1&#x27;b1</span>; </span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"><span class="comment">//led流水控制计数器 </span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> sys_rst_n) <span class="keyword">begin</span> </span><br><span class="line">    <span class="keyword">if</span> (sys_rst_n == <span class="number">1&#x27;b0</span>) </span><br><span class="line">        led_ctrl_cnt &lt;= <span class="number">2&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (counter_en) </span><br><span class="line">        led_ctrl_cnt &lt;= led_ctrl_cnt + <span class="number">2&#x27;b1</span>; </span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//通过控制IO口的高低电平实现发光二极管的亮灭 </span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> sys_rst_n) <span class="keyword">begin</span> </span><br><span class="line">    <span class="keyword">if</span> (sys_rst_n == <span class="number">1&#x27;b0</span>) </span><br><span class="line">        led &lt;= <span class="number">4&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span> </span><br><span class="line">        <span class="keyword">case</span> (led_ctrl_cnt)                  </span><br><span class="line">            <span class="number">2&#x27;d0</span> : led &lt;= <span class="number">4&#x27;b0001</span>; </span><br><span class="line">            <span class="number">2&#x27;d1</span> : led &lt;= <span class="number">4&#x27;b0010</span>; </span><br><span class="line">            <span class="number">2&#x27;d2</span> : led &lt;= <span class="number">4&#x27;b0100</span>; </span><br><span class="line">            <span class="number">2&#x27;d3</span> : led &lt;= <span class="number">4&#x27;b1000</span>; </span><br><span class="line">            <span class="keyword">default</span> : ; </span><br><span class="line">        <span class="keyword">endcase</span> </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<p>以下对上述代码块进行详细说明:<br></p>
+<p>首先提出一个概念<em><strong>模块级例化语句</strong></em>，它是结构建模中最常用的方式。模块是Verilog 中基本单元的定义形式，是与外界交互的接口。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> module_name </span><br><span class="line">#(parameter_list) <span class="comment">//参数可选</span></span><br><span class="line">(port_list) ;  <span class="comment">//端口列表、端口声明</span></span><br><span class="line">        ;<span class="comment">//Declarations_and_Statements</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<p>参数和变量定义</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//parameter define </span></span><br><span class="line"><span class="keyword">parameter</span>  WIDTH     = <span class="number">25</span>        ;  <span class="comment">//位宽</span></span><br><span class="line"><span class="keyword">parameter</span>  COUNT_MAX = <span class="number">25_000_000</span>;  <span class="comment">//板载50M时钟=20ns，0.5s/20ns=25000000，需要25bit </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//reg define </span></span><br><span class="line"><span class="keyword">reg</span>    [WIDTH-<span class="number">1</span>:<span class="number">0</span>]  counter     ; </span><br><span class="line"><span class="keyword">reg</span>    [<span class="number">1</span>:<span class="number">0</span>]        led_ctrl_cnt; </span><br><span class="line"></span><br><span class="line"><span class="comment">//wire define </span></span><br><span class="line"><span class="keyword">wire</span>                counter_en  ; </span><br></pre></td></tr></table></figure>
+<p>进入代码主体</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计数到最大值时产生高电平使能信号 </span></span><br><span class="line"><span class="keyword">assign</span>  counter_en = (counter == (COUNT_MAX - <span class="number">1&#x27;b1</span>))  ?  <span class="number">1&#x27;b1</span>  :  <span class="number">1&#x27;b0</span>;   </span><br></pre></td></tr></table></figure>
+<p>第一句通过条件运算符实现当计满时<code>counter_en</code>高电平，未满时低电平。以下说明<code>assign</code>：<br><br>
+<code>assign</code>用于连续赋值语句用于为<code>wire</code>类型赋值</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span>     LHS_target = RHS_expression  ；<span class="comment">//LHS必须为wire类型，RHS类型任意</span></span><br></pre></td></tr></table></figure>
+<p><code>wire</code>类型变量也可以在声明时直接赋值，因为<code>wire</code>类型变量只可以赋值一次所以两种方式效果相同。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于产生0.5秒使能信号的计数器 </span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> sys_rst_n) <span class="keyword">begin</span> </span><br><span class="line">    <span class="keyword">if</span> (sys_rst_n == <span class="number">1&#x27;b0</span>) </span><br><span class="line">        counter &lt;= <span class="number">1&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (counter_en) </span><br><span class="line">        counter &lt;= <span class="number">1&#x27;b0</span>; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        counter &lt;= counter + <span class="number">1&#x27;b1</span>; </span><br><span class="line"><span class="keyword">end</span> </span><br></pre></td></tr></table></figure>
+<p><code>always</code>属于过程结构语句，以下介绍过程结构语句:（引用自菜鸟教程）<br></p>
+<ul>
+<li>过程结构语句有 2 种，<code>initial</code> 与 <code>always</code> 语句。它们是行为级建模的 2 种基本语句。</li>
+<li>一个模块中可以包含多个 <code>initial</code> 和 <code>always</code> 语句，但 2 种语句不能嵌套使用。</li>
+<li>这些语句在模块间并行执行，与其在模块的前后顺序没有关系。</li>
+<li>但是 <code>initial</code> 语句或 <code>always</code> 语句内部可以理解为是顺序执行的（非阻塞赋值除外）。</li>
+<li>每个 <code>initial</code> 语句或 <code>always</code> 语句都会产生一个独立的控制流，执行时间都是从 0 时刻开始。</li>
+</ul>
+<ol>
+<li><code>initial</code>语句
+<ul>
+<li><code>initial</code> 语句从 0 时刻开始执行，只执行一次，多个 <code>initial</code> 块之间是相互独立的。</li>
+<li>如果 <code>initial</code> 块内包含多个语句，需要使用关键字 <code>begin</code> 和 <code>end</code> 组成一个块语句。</li>
+<li>如果 <code>initial</code> 块内只要一条语句，关键字 <code>begin</code> 和 <code>end</code> 可使用也可不使用。</li>
+<li><code>initial</code> 理论上来讲是不可综合的，多用于初始化、信号检测等。</li>
+</ul>
+</li>
+<li><code>always</code>语句
+<ul>
+<li>与 initial 语句相反，always 语句是重复执行的。always 语句块从 0 时刻开始执行其中的行为语句；当执行完最后一条语句后，便再次执行语句块中的第一条语句，如此循环反复。</li>
+</ul>
+</li>
+</ol>
+<p><code>posedge</code>为positive edge的缩写即上升沿，同理<code>negedge</code>为negitive edge下降沿的缩写。这就引出了verilog的时序控制。<br></p>
+<ol>
+<li>时延控制<code>#delay procedural_statement</code></li>
+<li>事件控制 一般用符号<code>@</code>来表示
+<ol>
+<li>一般事件触发
+<ol>
+<li>使用方法<code>always @(clk) q &lt;= d ;</code>clk只要变化就触发</li>
+<li><code>always @(posedge clk) q &lt;= d ; </code>clk上升沿触发</li>
+<li><code>always @(negedge clk) q &lt;= d ;</code>clk下降沿触发</li>
+<li><code>q = @(posedge clk) d ; </code>clk上升沿将d赋值给q，不推荐写法</li>
+</ol>
+</li>
+<li>命名事件触发 会用到<code>event</code>类型变量，暂时不触及</li>
+<li>敏感列表 采用关键字<code>or</code>或<code>,</code>来连接多个能够触发的事件,如<code>always @(posedge clk or negedge rstn)q &lt;= d;</code></li>
+</ol>
+</li>
+<li>边沿触发</li>
+<li>电平触发</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YZK</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yzk1998.github.io/2022/02/12/learnVerilog/">https://yzk1998.github.io/2022/02/12/learnVerilog/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yzk1998.github.io" target="_blank">行路难</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/verilog/">verilog</a></div><div class="post_share"><div class="social-share" data-image="/./img/defaultTop.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/02/03/ano-2/"><img class="next-cover" src="/./img/defaultTop.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">匿名飞控源码解析(二)---Ano_FcData数据处理</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">YZK</div><div class="author-info__description">YZK</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yzk1998"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yzk1998" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://space.bilibili.com/165458513?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="fab fa-accessible-icon"></i></a><a class="social-icon" href="mailto:1104913753@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">加油!进步!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Verilog 语法复习笔记（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%80%BC"><span class="toc-text">逻辑值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-text">标识符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-text">命名规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E5%BB%BA%E8%AE%AE"><span class="toc-text">规范建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97"><span class="toc-text">数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">寄存器类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%BD%91%E7%B1%BB%E5%9E%8B"><span class="toc-text">线网类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">参数类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">算术运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">关系运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">条件运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">位运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">移位运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%BC%E6%8E%A5%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">拼接运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">运算符优先级</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6"><span class="toc-text">程序框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A-%E4%B8%8Ec%E8%AF%AD%E8%A8%80%E7%9B%B8%E5%90%8C"><span class="toc-text">注释(与c语言相同)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6-2"><span class="toc-text">程序框架</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/02/12/learnVerilog/" title="Verilog 语法复习笔记（一）"><img src="/./img/defaultTop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Verilog 语法复习笔记（一）"/></a><div class="content"><a class="title" href="/2022/02/12/learnVerilog/" title="Verilog 语法复习笔记（一）">Verilog 语法复习笔记（一）</a><time datetime="2022-02-12T04:40:44.000Z" title="发表于 2022-02-12 12:40:44">2022-02-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/ano-2/" title="匿名飞控源码解析(二)---Ano_FcData数据处理"><img src="/./img/defaultTop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="匿名飞控源码解析(二)---Ano_FcData数据处理"/></a><div class="content"><a class="title" href="/2022/02/03/ano-2/" title="匿名飞控源码解析(二)---Ano_FcData数据处理">匿名飞控源码解析(二)---Ano_FcData数据处理</a><time datetime="2022-02-03T13:40:44.000Z" title="发表于 2022-02-03 21:40:44">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/ano/" title="匿名飞控源码解析(一)---主程序"><img src="/./img/defaultTop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="匿名飞控源码解析(一)---主程序"/></a><div class="content"><a class="title" href="/2022/02/03/ano/" title="匿名飞控源码解析(一)---主程序">匿名飞控源码解析(一)---主程序</a><time datetime="2022-02-03T13:40:44.000Z" title="发表于 2022-02-03 21:40:44">2022-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/31/hexoLearn/" title="hexo搭建备忘录"><img src="/./img/defaultTop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo搭建备忘录"/></a><div class="content"><a class="title" href="/2022/01/31/hexoLearn/" title="hexo搭建备忘录">hexo搭建备忘录</a><time datetime="2022-01-31T11:40:44.000Z" title="发表于 2022-01-31 19:40:44">2022-01-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/31/hello-world/" title="Hello World"><img src="/./img/defaultTop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/01/31/hello-world/" title="Hello World">Hello World</a><time datetime="2022-01-31T10:20:55.310Z" title="发表于 2022-01-31 18:20:55">2022-01-31</time></div></div></div></div></div></div></main><footer id="footer" style="background: #000000"><div id="footer-wrap"><div class="copyright">&copy;2022 By YZK</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

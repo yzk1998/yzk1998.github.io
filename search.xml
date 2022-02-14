@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2022/02/14/standardVerilog/"/>
+      <url>/2022/02/14/standardVerilog/</url>
+      
+        <content type="html"><![CDATA[<h1 id="verilog编程规范"><a href="#verilog编程规范" class="headerlink" title="verilog编程规范"></a>verilog编程规范</h1><h2 id="工程组织形式"><a href="#工程组织形式" class="headerlink" title="工程组织形式"></a>工程组织形式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XX工程</span><br><span class="line">    |--doc  一般存放工程相关的文档，包括该项目用到的datasheet（数据手册）、设计方案等</span><br><span class="line">    |--par  主要存放工程文件</span><br><span class="line">    |--rtl  主要存放工程的rtl代码，这是工程的核心，文件名与module名称应当一致</span><br><span class="line">    |--sim  主要存放工程的仿真代码</span><br></pre></td></tr></table></figure><h2 id="输入输出定义"><a href="#输入输出定义" class="headerlink" title="输入输出定义"></a>输入输出定义</h2><ol><li>一行只定义一个信号</li><li>信号全部对齐</li><li>同一组的信号放在一起<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> led( </span><br><span class="line">    <span class="keyword">input</span>               sys_clk  ,  <span class="comment">//系统时钟 </span></span><br><span class="line">    <span class="keyword">input</span>               sys_rst_n,  <span class="comment">//系统复位，低电平有效 </span></span><br><span class="line">    <span class="keyword">output</span>  <span class="keyword">reg</span>  [<span class="number">3</span>:<span class="number">0</span>]  led         <span class="comment">//4位LED灯 </span></span><br><span class="line">    ); </span><br></pre></td></tr></table></figure></li></ol><h2 id="parameter定义"><a href="#parameter定义" class="headerlink" title="parameter定义"></a>parameter定义</h2><ol><li>将parameter定义放在紧跟着module的输入输出定义之后</li><li>命名全部使用大写</li></ol><h2 id="wire-reg定义"><a href="#wire-reg定义" class="headerlink" title="wire/reg定义"></a>wire/reg定义</h2><ol><li>将reg与wire的定义放在紧跟着parameter之后</li><li>建议具有相同功能的信号集中放在一起</li><li>信号需要对齐</li><li>信号需要对齐</li><li>一行只定义一个信号</li></ol><h2 id="信号命名"><a href="#信号命名" class="headerlink" title="信号命名"></a>信号命名</h2><ol><li>内部信号全部使用小写</li><li>模块名字使用小写</li><li>低电平有效的信号，使用_n作为信号后缀</li><li>异步信号，使用_a作为信号后缀</li><li>纯延迟打拍信号使用_dly作为后缀</li></ol><h2 id="always块描述方式"><a href="#always块描述方式" class="headerlink" title="always块描述方式"></a>always块描述方式</h2><ol><li>一个always需要配一个<code>begin</code>和<code>end</code>，<code>beign</code>建议和<code>always</code>放在同一行</li><li>时钟复位触发描述使用<code>posedge sys_clk</code>和<code>negedge sys_rst_n</code></li><li>一个always块只包含一个时钟和复位</li><li>时序逻辑使用非阻塞赋值</li></ol><h2 id="assign块"><a href="#assign块" class="headerlink" title="assign块"></a>assign块</h2><ol><li>assign的逻辑不能太复杂，否则易读性不好</li><li>组合逻辑使用阻塞赋值</li></ol><h2 id="模块例化"><a href="#模块例化" class="headerlink" title="模块例化"></a>模块例化</h2><ol><li>moudle模块例化使用u_xx表示</li></ol><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol><li>不使用repeat等循环语句</li><li>RTL级别代码里面不使用initial语句，仿真代码除外</li><li>避免产生Latch锁存器，比如组合逻辑里面的if不带else分支、case缺少default语句</li><li>避免使用太复杂和少见的语法，可能造成语法综合器优化力度较低</li></ol>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>verilog语法二---进阶篇</title>
       <link href="/2022/02/13/DeeperVerilog-md/"/>
       <url>/2022/02/13/DeeperVerilog-md/</url>
